@@ -1,0 +1,19 @@
+.main {
+    background-color: #ebf0f3;
+}
+  
+.container {
+    padding: 20px 30px 40px 30px;
+}
+
+.header {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-bottom: 1px solid #dddede;
+}
+
+.header__title {
+    font-size: 20px;
+    text-align: center;
+    color: #3c3e44;
+}
