@@ -1,27 +1,26 @@
-interface Props {
+interface Card {
+    id: number
     logo: string;
     rateFrom: number;
     name: string;
     creditAmountFrom: number;
     creditAmountTo: number;
-    rateTo: number;
+    termTo: number;
     ageFrom: number;
     lastExperience: number;
-    documnts: number;
+    documents: number;
     license: string;
  }
 
+ interface Props {
+   card: Card
+ }
+
 function Card(props: Props) {
-    const showMessage = () => {
-      alert('Followed ' + props.name);
-    };
-  
-    const handleClick = () => {
-      setTimeout(showMessage, 3000);
-    };
-  
     return (
-      <button onClick={handleClick}>Follow</button>
+      <div>
+        <div>{props.card.id}</div>
+      </div>
     );
   }
 

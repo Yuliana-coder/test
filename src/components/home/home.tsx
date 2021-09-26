@@ -1,5 +1,6 @@
 import React from "react";
 import "./home.css"
+import Card from "./../card";
 import {data} from "./../../backend/data.js"
 
 class Home extends React.Component<any, any> {
@@ -15,16 +16,17 @@ class Home extends React.Component<any, any> {
     dataAdapter(data: any) {
         return [...data].map((item: any) => {
             return {
-                logo: item.organization && item.organization.logo ? item.organization.logo : "",
-                rateFrom: item.rate && item.rate.periods && item.rate.periods[0] && item.rate.periods[0].rate && item.rate.periods[0].rate.from ? item.rate.periods[0].rate.from : 0,
-                name: item.name || "",
-                creditAmountFrom: item.rate && item.rate.creditAmount && item.rate.creditAmount.from ? item.rate.creditAmount.from : 0,
-                creditAmountTo: item.rate && item.rate.creditAmount && item.rate.creditAmount.to ? item.rate.creditAmount.to : 0,
-                termTo: item.rate && item.rate.periods && item.rate.periods[0] && item.rate.periods[0].term ? item.rate.periods[0].term.to : 0,
-                ageFrom: item.customerRequirements && item.customerRequirements.age ? item.customerRequirements.age : 0,
-                lastExperience: item.customerRequirements && item.customerRequirements.lastExperience ? item.customerRequirements.lastExperience : 0,
-                documents: item.customerRequirements && item.customerRequirements.documents ? item.customerRequirements.documents : 0,
-                license: item.organization && item.organization.license ? item.organization.license : ""
+                id: [...data].indexOf(item) + 1,
+                logo: item.organization?.logo,
+                rateFrom: item.rate?.periods[0]?.rate?.from,
+                name: item.name,
+                creditAmountFrom: item.rate?.creditAmount?.from,
+                creditAmountTo: item.rate?.creditAmount?.to,
+                termTo: item.rate?.periods[0]?.term?.to,
+                ageFrom: item.customerRequirements?.age,
+                lastExperience: item.customerRequirements?.lastExperience,
+                documents: item.customerRequirements?.documents,
+                license: item.organization?.license
             }
         })
     }
@@ -61,9 +63,9 @@ class Home extends React.Component<any, any> {
         }else {
             return (
                     <div className="home">
-                        {cards.map((item: any) => { return <div>
+                        {cards.map((item: any) => { return <div key={item.id}>
                             <div>
-                            {item.name}
+                            <Card card={item} />
                             </div>
                         </div>})}
                 </div>

@@ -1,5 +1,10 @@
-import Home from "./components/home/home";
 import "./App.css"
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+
+import Home from "./components/home";
+import Page404 from "./components/page404"
+import Cardpage from "./components/cardpage"
+
 
 function App() {
   return (
@@ -10,7 +15,13 @@ function App() {
         </div>
       </header>
       <div className="main container">
-        <Home />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/card/:id" component={Cardpage} />
+            <Route component={Page404} />
+          </Switch>
+        </BrowserRouter>
       </div>
     </div>
   );
