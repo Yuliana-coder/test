@@ -1,7 +1,11 @@
+import "./card.css"
+import {getYearsPhrase} from "./../../utils/phrasing"
+
 interface Card {
     id: number
     logo: string;
     rateFrom: number;
+    rateTo: number;
     name: string;
     creditAmountFrom: number;
     creditAmountTo: number;
@@ -17,9 +21,75 @@ interface Card {
  }
 
 function Card(props: Props) {
+  let rate: any = "";
+  let creditAmount: any = "";
+
+  if(props.card.rateFrom) {
+    if(props.card.rateTo && props.card.rateFrom == props.card.rateTo) {
+      rate = props.card.rateFrom + "%";
+    }else {
+      rate = "от " + props.card.rateFrom + "%";
+    }
+  }
+
+  if(props.card.creditAmountFrom && props.card.creditAmountTo) {
+    creditAmount = props.card.creditAmountFrom + " ₽" + " - " + props.card.creditAmountTo + " ₽";
+  }else if(props.card.creditAmountFrom) {
+    creditAmount = props.card.creditAmountFrom + " ₽";
+  }else if(props.card.creditAmountTo) {
+    creditAmount = props.card.creditAmountTo + " ₽";
+  }
+
     return (
-      <div>
-        <div>{props.card.id}</div>
+      <div className="card">
+        <div className="card__section">
+          <div className="card__section-content">
+            <div className="card__section-content-inner">
+              <div className={props.card.logo ? "card__section-content-inner-logo" : "logo-stub"}>
+                <div className="logo-container">
+                  <img className="logo" src={props.card.logo ? props.card.logo : ""} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="card__section">
+          <div className="card__section-content">
+            <div className="card__section-content-inner">
+              {rate ? <div className="card__section-content-inner-text-wrapper"> 
+              <span className="card__section-content-inner-text card__section-content-inner-text_rateFrom">
+                {rate}
+              </span> </div> : null}
+              <div className="card__section-content-inner-text-wrapper">
+                {props.card.name ? 
+                <div className="card__section-content-inner-text card__section-content-inner-text_name">"{props.card.name}"</div>
+                 : null}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="card__section">
+          <div className="card__section-content">
+            <div className="card__section-content-inner">
+              {creditAmount ? <span className="card__section-content-inner-text card__section-content-inner-text_amount"> {creditAmount} </span> : null}
+              {props.card.termTo ? <span className="card__section-content-inner-text card__section-content-inner-text_term"> На срок до {Math.ceil(props.card.termTo / 12) } {getYearsPhrase(Math.ceil(props.card.termTo / 12))}</span> : null}
+            </div>
+          </div>
+        </div>
+        <div className="card__section">
+          <div className="card__section-content">
+            <div className="card__section-content-inner">
+              {props.card.ageFrom ? <span className="card__section-content-inner-text">Возраст от {props.card.ageFrom} {getYearsPhrase(props.card.ageFrom)}</span> : null}
+            </div>
+          </div>
+        </div>
+        <div className="card__section">
+          <div className="card__section-content">
+            <div className="card__section-content-inner">
+              {props.card.id}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

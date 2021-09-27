@@ -17,3 +17,24 @@
     text-align: center;
     color: #3c3e44;
 }
+
+.logo-container {
+    position: relative;
+    padding-bottom: 36%;
+    height: 0;
+    overflow: hidden;
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.logo-stub {
+    width: 110px;
+    height: 40px;
+    background-color: gray;
+}

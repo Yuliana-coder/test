@@ -19,6 +19,7 @@ class Home extends React.Component<any, any> {
                 id: [...data].indexOf(item) + 1,
                 logo: item.organization?.logo,
                 rateFrom: item.rate?.periods[0]?.rate?.from,
+                rateTo: item.rate?.periods[0]?.rate?.to,
                 name: item.name,
                 creditAmountFrom: item.rate?.creditAmount?.from,
                 creditAmountTo: item.rate?.creditAmount?.to,
@@ -37,7 +38,7 @@ class Home extends React.Component<any, any> {
                 cards: this.dataAdapter(data),
                 isLoaded: true
             })
-            console.log(data);
+            // console.log(data);
         }else {
             this.setState({
                 error: 'Ошибка получения данных',
