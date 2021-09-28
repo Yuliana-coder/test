@@ -9,12 +9,23 @@ class Home extends React.Component<any, any> {
         this.state  = {
             cards: [],
             isLoaded: false,
-            error: null
+            error: null,
+            pagination: {
+                currentNumberItems: 10,
+                numberItems: 10,
+                totalNumberItems: null
+            }
         }
     }
 
     dataAdapter(data: any) {
-        return [...data].map((item: any) => {
+        let currentArray: any =[...data];
+        
+        if(currentArray.length >= this.state.pagination.currentNumberItems) {
+            currentArray = currentArray.slice(0, this.state.pagination.currentNumberItems)
+        }
+
+        return currentArray.map((item: any) => {
             return {
                 id: [...data].indexOf(item) + 1,
                 logo: item.organization?.logo,
@@ -32,13 +43,20 @@ class Home extends React.Component<any, any> {
         })
     }
 
+    getData() {
+        this.setState({cards: this.dataAdapter(data)});
+    }
+
     componentDidMount() {
         if(data) {
-            this.setState({
-                cards: this.dataAdapter(data),
-                isLoaded: true
-            })
-            // console.log(data);
+            this.setState((prevState: any) => ({
+                pagination: {                   
+                    ...prevState.pagination,   
+                    totalNumberItems: data.length   
+                }
+            }), this.getData);
+            this.setState({isLoaded: true});
+
         }else {
             this.setState({
                 error: 'Ошибка получения данных',
@@ -47,8 +65,29 @@ class Home extends React.Component<any, any> {
         }
     }
 
+    paginatePage() {
+        if(this.state.pagination.currentNumberItems < this.state.pagination.totalNumberItems) {
+            if(this.state.pagination.totalNumberItems - this.state.pagination.currentNumberItems > 
+                this.state.pagination.numberItems) {
+                this.setState((prevState: any) => ({
+                    pagination: {                   
+                        ...prevState.pagination,   
+                        currentNumberItems: this.state.pagination.currentNumberItems + this.state.pagination.numberItems     
+                    }
+                }), this.getData);
+                }else {
+                    this.setState((prevState: any) => ({
+                        pagination: {                   
+                            ...prevState.pagination,   
+                            currentNumberItems: this.state.pagination.totalNumberItems   
+                        }
+                    }), this.getData);
+            }
+        }
+    }
+
     render() {
-        const {cards, isLoaded, error} = this.state;
+        const {cards, isLoaded, error, pagination} = this.state;
         if(error) {
             return (
                 <div className="home">
@@ -69,6 +108,15 @@ class Home extends React.Component<any, any> {
                             <Card card={item} />
                             </div>
                         </div>})}
+                        {pagination.totalNumberItems > pagination.currentNumberItems ? 
+                        <div className="home__pagination">
+                            <div onClick={this.paginatePage.bind(this)} className="home__pagination-inner">
+                                Показать ещё {pagination.totalNumberItems - pagination.currentNumberItems >= pagination.numberItems
+                                ? pagination.numberItems : 
+                                pagination.totalNumberItems - pagination.currentNumberItems} из {pagination.totalNumberItems - pagination.currentNumberItems}
+                             </div>
+                        </div>
+                        : null}
                 </div>
             );
         }
