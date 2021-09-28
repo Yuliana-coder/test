@@ -44,9 +44,7 @@ function cardAdapter(dataArray: any, id: any = null, numberItems: any = null) {
         }
     })
 
-    if(id) {
-        console.log(newData, id);
-        
+    if(id) {        
         return newData.filter((item: any) => { return item.id === Number(id) })
     }else{
         return newData
