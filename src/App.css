@@ -59,4 +59,19 @@
     background-color: rgb(13, 209, 73);
     display: block;
     width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.inscription {
+    font-size: 10px;
+    margin-bottom: 3px;
+    font-weight: 300;
+    line-height: 1;
+}
+
+@media (max-width: 991px) { 
+    .logo-container {
+        padding-bottom: 16%;
+    }
 }

@@ -104,7 +104,7 @@ class Home extends React.Component<any, any> {
             return (
                     <div className="home">
                         {cards.map((item: any) => { return <div key={item.id}>
-                            <div>
+                            <div className="home-card">
                             <Card card={item} />
                             </div>
                         </div>})}
