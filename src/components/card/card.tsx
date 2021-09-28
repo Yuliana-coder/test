@@ -1,23 +1,9 @@
 import "./card.css"
 import {getYearsPhrase, getMonthsPhrase, getDocumentsPhrase} from "./../../utils/phrasing"
-
-interface Card {
-    id: number
-    logo: string;
-    rateFrom: number;
-    rateTo: number;
-    name: string;
-    creditAmountFrom: number;
-    creditAmountTo: number;
-    termTo: number;
-    ageFrom: number;
-    lastExperience: number;
-    documents: number;
-    license: string;
- }
+import {ICard} from "./../cardpage/cardpage"
 
  interface Props {
-   card: Card
+   card: ICard
  }
 
 function Card(props: Props) {
@@ -94,7 +80,7 @@ function Card(props: Props) {
                 <div className="card__section-content-inner">
                 <div className="card__section-content-inner-text_inscription inscription">Сумма</div>
                   {creditAmount ? <span className="card__section-content-inner-text card__section-content-inner-text_amount"> {creditAmount} </span> : null}
-                  {creditAmount ? <span className="card__section-content-inner-text card__section-content-inner-text_amount-mobile"> {creditAmountMobile} </span> : null}
+                  {creditAmountMobile ? <span className="card__section-content-inner-text card__section-content-inner-text_amount-mobile"> {creditAmountMobile} </span> : null}
                   {props.card.termTo ? <span className="card__section-content-inner-text card__section-content-inner-text_term"> На срок до {Math.ceil(props.card.termTo / 12) } {getYearsPhrase(Math.ceil(props.card.termTo / 12))}</span> : null}
                 </div>
               </div>
@@ -109,12 +95,10 @@ function Card(props: Props) {
               </div>
             </div>
             <div className="card__section">
-              <div className="card__section-content">
-                <div className="card__section-content-inner">
-                  {props.card.license ? <span className="card__section-content-inner-text card__section-content-inner-text_license">лиц. №{props.card.license}</span> : null}
-                  <div className="card__section-content-inner_btn">
-                    <a className="" href="/" target="_blank"><button className="btn-confirm">ПЕРЕЙТИ НА САЙТ</button></a>
-                  </div>
+              <div className="card__section-content-inner">
+                {props.card.license ? <span className="card__section-content-inner-text card__section-content-inner-text_license">лиц. №{props.card.license}</span> : null}
+                <div className="card__section-content-inner_btn">
+                  <button onClick={() => window.open("/", 'target="_blank"')} className="btn-confirm">ПЕРЕЙТИ НА САЙТ</button>
                 </div>
               </div>
             </div>

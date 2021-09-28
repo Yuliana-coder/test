@@ -8,9 +8,9 @@ export function getYearsPhrase(age: any) {
 }
 
 export function getMonthsPhrase(months: any) {
-    let result = "мясяцев";
+    let result = "месяцев";
     if((months.toString())[(months.toString()).length - 1] == "1") {
-        result = "мясяца";
+        result = "месяца";
     }
 
     return result;

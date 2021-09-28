@@ -93,6 +93,10 @@
      display: none;
  }
 
+ .card__section-content-inner-text_amount-mobile {
+     display: none;
+ }
+
 @media (max-width: 991px) { 
     .card {
         flex-wrap: wrap;
@@ -180,6 +184,7 @@
     }
 
     .card__section-content-inner-text_amount-mobile {
+        display: block;
         white-space: nowrap;
         color: #3c3e44;
         font-weight: 700;

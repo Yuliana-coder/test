@@ -2,6 +2,8 @@ import React from "react";
 import "./home.css"
 import Card from "./../card";
 import {data} from "./../../backend/data.js"
+import { Link } from 'react-router-dom'
+import {getCardsData} from "./../../backend/api"
 
 class Home extends React.Component<any, any> {
     constructor(props: any) {
@@ -18,33 +20,8 @@ class Home extends React.Component<any, any> {
         }
     }
 
-    dataAdapter(data: any) {
-        let currentArray: any =[...data];
-        
-        if(currentArray.length >= this.state.pagination.currentNumberItems) {
-            currentArray = currentArray.slice(0, this.state.pagination.currentNumberItems)
-        }
-
-        return currentArray.map((item: any) => {
-            return {
-                id: [...data].indexOf(item) + 1,
-                logo: item.organization?.logo,
-                rateFrom: item.rate?.periods[0]?.rate?.from,
-                rateTo: item.rate?.periods[0]?.rate?.to,
-                name: item.name,
-                creditAmountFrom: item.rate?.creditAmount?.from,
-                creditAmountTo: item.rate?.creditAmount?.to,
-                termTo: item.rate?.periods[0]?.term?.to,
-                ageFrom: item.customerRequirements?.age,
-                lastExperience: item.customerRequirements?.lastExperience,
-                documents: item.customerRequirements?.documents,
-                license: item.organization?.license
-            }
-        })
-    }
-
     getData() {
-        this.setState({cards: this.dataAdapter(data)});
+        this.setState({cards: getCardsData(undefined, this.state.pagination.currentNumberItems)});
     }
 
     componentDidMount() {
@@ -104,9 +81,11 @@ class Home extends React.Component<any, any> {
             return (
                     <div className="home">
                         {cards.map((item: any) => { return <div key={item.id}>
-                            <div className="home-card">
-                            <Card card={item} />
-                            </div>
+                            <Link target="_blank" to={`/card/${item.id}`}>
+                                <div className="home-card">
+                                <Card card={item} />
+                                </div>
+                            </Link>
                         </div>})}
                         {pagination.totalNumberItems > pagination.currentNumberItems ? 
                         <div className="home__pagination">
