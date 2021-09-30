@@ -63,6 +63,8 @@
     line-height: 22px;
     font-weight: 700;
     color: #3c3e44;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .cardpage-info__header-logo {

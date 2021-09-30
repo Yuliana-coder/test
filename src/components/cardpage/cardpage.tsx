@@ -44,7 +44,7 @@ class Cardpage extends React.Component<any, ICardState> {
     }
 
     getData() {
-        this.setState({card: getCardsData(this.state.id) && getCardsData(this.state.id).length ? getCardsData(this.state.id)[0] : null});
+        this.setState({card: getCardsData(this.state.id) && getCardsData(this.state.id).data.length ? getCardsData(this.state.id).data[0] : null});
     }
 
     componentDidMount() {
